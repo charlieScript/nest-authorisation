@@ -20,11 +20,11 @@ export class AbilityFactory {
   defineAbilityFor(user: User) {
     // define roles
     const { can, cannot, build } = new AbilityBuilder(Ability as AbilityClass<AppAbility>);
-    console.log(user);
     
     // can manage all users
     if (user.roles.includes('admin')) {
-      can(Action.Delete, Books);
+      console.log(user);
+      can(Action.Manage, 'all');
       // cannot(Action.Manage, User, { orgId: { $ne: user.orgId} }).because('You are not allowed to manage other users');
     } else {
       can(Action.Read, Books);

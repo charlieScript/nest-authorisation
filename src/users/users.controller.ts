@@ -60,7 +60,7 @@ export class UsersController {
   }
 
   // @UseGuards(RolesGuard(Role.ADMIN))
-  @UseGuards(PermissionGuard(Permission.ReadBook))
+  @UseGuards(PermissionGuard(Action.Read, Books))
   @Get('/test')
   test(@Request() req) {
     // console.log(req.user);
