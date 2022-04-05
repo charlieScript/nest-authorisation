@@ -67,7 +67,8 @@ export class UsersController {
     return 'working'
   }
 
-  // @UseGuards(RolesGuard(Role.ADMIN))
+  // the working one
+  @UseGuards(PermissionGuard(Action.Read, User))
   @Get()
   findAll(@Request() req) {
     return this.usersService.findAll();
@@ -80,29 +81,28 @@ export class UsersController {
     return this.authService.login(req.user);
   }
 
-  @UseGuards(RolesGuard(Role.ADMIN))
-  @Patch('')
-  async update(@Body() updateUserDto: User, @Request() req) {
-    const user = await this.usersService.findOne(updateUserDto.username)
-    const ability = this.abilityFactory.defineAbilityFor(req.user)
-    try {
-      ForbiddenError.from(ability).throwUnlessCan(Action.Update, user);
-      return this.usersService.update(updateUserDto);
-    } catch (error) {
-      if (error instanceof ForbiddenError) {
-        throw new ForbiddenException(error.message);
-      }
-    }
-    return this.usersService.update(updateUserDto);
-  }
+  // @UseGuards(RolesGuard(Role.ADMIN))
+  // @Patch('')
+  // async update(@Body() updateUserDto: User, @Request() req) {
+  //   const user = await this.usersService.findOne(updateUserDto.username)
+  //   const ability = this.abilityFactory.defineAbilityFor(req.user)
+  //   try {
+  //     ForbiddenError.from(ability).throwUnlessCan(Action.Update, user);
+  //     return this.usersService.update(updateUserDto);
+  //   } catch (error) {
+  //     if (error instanceof ForbiddenError) {
+  //       throw new ForbiddenException(error.message);
+  //     }
+  //   }
+  //   return this.usersService.update(updateUserDto);
+  // }
 
-  @Delete(':id')
-  @UseGuards(JwtAuthGuard)
+  // @Delete(':id')
+  // @UseGuards(JwtAuthGuard)
   // @UseGuards(AbilitiesGuard)
-  // @CheckAbilities({ action: Action.Delete, subject: User })
-  @UseGuards(PoliciesGuard)
-  @CheckPolicies((ability: AppAbility) => ability.can(Action.Delete, User))
-  remove(@Param('id') id: string) {
-    return this.usersService.remove(id);
-  }
+  // // @CheckAbilities({ action: Action.Delete, subject: User })
+  // @CheckPolicies((ability: AppAbility) => ability.can(Action.Delete, User))
+  // remove(@Param('id') id: string) {
+  //   return this.usersService.remove(id);
+  // }
 }

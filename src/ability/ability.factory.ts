@@ -23,8 +23,7 @@ export class AbilityFactory {
     
     // can manage all users
     if (user.roles.includes('admin')) {
-      console.log(user);
-      can(Action.Manage, 'all');
+      can(Action.Read, User);
       // cannot(Action.Manage, User, { orgId: { $ne: user.orgId} }).because('You are not allowed to manage other users');
     } else {
       can(Action.Read, Books);

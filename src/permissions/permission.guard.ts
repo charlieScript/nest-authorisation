@@ -19,9 +19,8 @@ const PermissionGuard = (permission: Action, subject: any): Type<CanActivate> =>
       const user = request.user;
       const abili = new AbilityFactory()   
       const ability = abili.defineAbilityFor(user);
-      // const isAllowed = ability.can(permission, subject)
-      // console.log(isAllowed);
-      
+      const isAllowed = ability.can(permission, subject)
+      console.log(isAllowed);
       
       try {
         ForbiddenError.from(ability).throwUnlessCan(permission, subject);
