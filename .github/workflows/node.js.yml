@@ -30,7 +30,3 @@ jobs:
     - run: yarn run build
     - name: Deploy to Heroku
       uses: AkhileshNS/heroku-deploy@v3.12.12
-        with:
-          heroku_api_key: ${{secrets.HEROKU_API_KEY}}
-          heroku_app_name: "nest-authorisation" #Must be unique in Heroku
-          heroku_email: "gozione3@gmail.com"
